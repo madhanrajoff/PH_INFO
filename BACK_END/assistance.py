@@ -5,6 +5,12 @@ from phonenumbers import carrier
 from enum import Enum
 
 
+class Figures:
+    @classmethod
+    def set_up(cls, data):
+        return {"figures": data}
+
+
 class Languages(Enum):
     en = "English"
 
@@ -16,7 +22,7 @@ class PyCountries:
 
     @staticmethod
     def take_code():
-        return {str(isos): code for code, isos in ph.COUNTRY_CODE_TO_REGION_CODE.items()}
+        return Figures.set_up([code for code, isos in ph.COUNTRY_CODE_TO_REGION_CODE.items()])
 
     @staticmethod
     def take_code_by(iso):

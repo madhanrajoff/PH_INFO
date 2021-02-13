@@ -1,0 +1,4 @@
+BACK_END/__pycache__/
+BACK_END/env/
+FRONT_END/node_modules/
+.idea

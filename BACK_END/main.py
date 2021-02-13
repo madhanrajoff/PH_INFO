@@ -1,9 +1,11 @@
 from flask import Flask, request
 from flask.views import MethodView
+from flask_cors import CORS
 
 import assistance as asst
 
 app = Flask(__name__)
+CORS(app)
 
 
 class PhChaserAPI(MethodView):
