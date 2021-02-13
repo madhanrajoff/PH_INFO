@@ -6,24 +6,24 @@ FRONT_END/node_modules/
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+FRONT_END/node_modules
+FRONT_END/.pnp
+FRONT_END/.pnp.js
 
 # testing
-/coverage
+FRONT_END/coverage
 
 # production
-/build
+FRONT_END/build
 
 # misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+FRONT_END/.DS_Store
+FRONT_END/.env.local
+FRONT_END/.env.development.local
+FRONT_END/.env.test.local
+FRONT_END/.env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+FRONT_END/npm-debug.log*
+FRONT_END/yarn-debug.log*
+FRONT_END/yarn-error.log*
 
