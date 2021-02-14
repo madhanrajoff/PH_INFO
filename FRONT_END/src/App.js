@@ -143,14 +143,6 @@ class App extends Component {
             </Hidden>
           </Box>
           <Hidden only="lg">
-            <Grow in={checked} timeout={7000}>
-              <Box>
-                <img
-                  className={classes.myCurrentLocationHidden}
-                  src={MyCurrentLocation}
-                />
-              </Box>
-            </Grow>
             <Slide
               direction="left"
               in={checked}
@@ -158,6 +150,14 @@ class App extends Component {
               mountOnEnter
               unmountOnExit
             >
+              <Box>
+                <img
+                  className={classes.myCurrentLocationHidden}
+                  src={MyCurrentLocation}
+                />
+              </Box>
+            </Slide>
+            <Grow in={checked} timeout={8000}>
               <Box
                 display="flex"
                 flexDirection="column"
@@ -206,7 +206,7 @@ class App extends Component {
                   </IconButton>
                 </Box>
               </Box>
-            </Slide>
+            </Grow>
           </Hidden>
 
           <Box display="flex" className={classes.cardBox}>
@@ -324,8 +324,7 @@ const useStyles = (theme) => ({
     },
   },
   travelBoxHidden: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    margin: theme.spacing(15, 0, 15, 1.5)
   },
   formSelect: {
     marginRight: theme.spacing(2),
