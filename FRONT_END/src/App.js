@@ -309,6 +309,7 @@ const useStyles = (theme) => ({
     },
   },
   travelBox: {
+    margin: theme.spacing(2, 5),
     [theme.breakpoints.down("sm")]: {
       margin: theme.spacing(0),
     },
@@ -323,7 +324,7 @@ const useStyles = (theme) => ({
     },
   },
   travelBoxHidden: {
-    margin: theme.spacing(10, 0, 10, 1),
+    margin: theme.spacing(10, 0),
   },
   formSelect: {
     marginRight: theme.spacing(2),
