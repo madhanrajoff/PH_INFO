@@ -33,6 +33,10 @@ class App extends Component {
     phChaser: {},
   };
 
+  Desktop = ["lg", "md", "sm", "xl"];
+
+  Mobile = ["md", "sm", "xl", "xs"];
+
   InvalidChars = [".", "-", "e", "+", "E"];
 
   componentDidMount() {
@@ -85,7 +89,7 @@ class App extends Component {
                 <img className={classes.myLocation} src={MyLocation} />
               </Box>
             </Slide>
-            <Hidden only="xs">
+            <Hidden only={this.Mobile}>
               <Grow in={checked} timeout={5000}>
                 <Box
                   display="flex"
@@ -142,7 +146,7 @@ class App extends Component {
               </Grow>
             </Hidden>
           </Box>
-          <Hidden only="lg">
+          <Hidden only={this.Desktop}>
             <Slide
               direction="left"
               in={checked}
@@ -224,7 +228,7 @@ class App extends Component {
                 />
               </Box>
             </Slide>
-            <Hidden only="xs">
+            <Hidden only={this.Mobile}>
               <Fade in={checked} timeout={5000}>
                 <Box flexGrow={1}>
                   <Card className={classes.card} variant="outlined">
@@ -254,7 +258,7 @@ class App extends Component {
                 </Box>
               </Fade>
             </Hidden>
-            <Hidden only="lg">
+            <Hidden only={this.Desktop}>
               <Slide
                 direction="right"
                 in={checked}
