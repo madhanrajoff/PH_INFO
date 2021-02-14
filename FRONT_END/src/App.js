@@ -17,7 +17,7 @@ import Typography from "@material-ui/core/Typography";
 import Fade from "@material-ui/core/Fade";
 import Grow from "@material-ui/core/Grow";
 import Slide from "@material-ui/core/Slide";
-import Hidden from '@material-ui/core/Hidden';
+import Hidden from "@material-ui/core/Hidden";
 
 import axios from "axios";
 
@@ -85,60 +85,135 @@ class App extends Component {
                 <img className={classes.myLocation} src={MyLocation} />
               </Box>
             </Slide>
-            <Grow in={checked} timeout={5000}>
-              <Box
-                display="flex"
-                flexDirection="column"
-                className={classes.travelBox}
-              >
-                <Box>
-                  <img className={classes.traveling} src={Traveling} />
-                </Box>
-                <Box>
-                  <FormControl className={classes.formSelect}>
-                    <InputLabel id="demo-simple-select-required-label">
-                      Code
-                    </InputLabel>
-                    <Select
-                      name="code"
-                      defaultValue={code}
-                      onChange={this.onInput}
+            <Hidden only="xs">
+              <Grow in={checked} timeout={5000}>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  className={classes.travelBox}
+                >
+                  <Box>
+                    <img className={classes.traveling} src={Traveling} />
+                  </Box>
+                  <Box>
+                    <FormControl className={classes.formSelect}>
+                      <InputLabel id="demo-simple-select-required-label">
+                        Code
+                      </InputLabel>
+                      <Select
+                        name="code"
+                        defaultValue={code}
+                        onChange={this.onInput}
+                      >
+                        {countryCode.map((c, i) => (
+                          <MenuItem key={i} value={c}>
+                            {c}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <FormHelperText>Country Code</FormHelperText>
+                    </FormControl>
+                    <FormControl className={classes.formInput}>
+                      <InputLabel>Mobile number</InputLabel>
+                      <Input
+                        fullWidth
+                        name="mobileNumber"
+                        type="number"
+                        onKeyDown={(e) =>
+                          this.InvalidChars.includes(e.key) &&
+                          e.preventDefault()
+                        }
+                        onInput={this.onInput}
+                      />
+                      <FormHelperText id="my-helper-text">
+                        We'll never share your number.
+                      </FormHelperText>
+                    </FormControl>
+                    <IconButton
+                      color="primary"
+                      onClick={this.onClick}
+                      className={classes.formSubmit}
+                      disabled={mobileNumber.length === 10 ? false : true}
                     >
-                      {countryCode.map((c, i) => (
-                        <MenuItem key={i} value={c}>
-                          {c}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                    <FormHelperText>Country Code</FormHelperText>
-                  </FormControl>
-                  <FormControl className={classes.formInput}>
-                    <InputLabel>Mobile number</InputLabel>
-                    <Input
-                      fullWidth
-                      name="mobileNumber"
-                      type="number"
-                      onKeyDown={(e) =>
-                        this.InvalidChars.includes(e.key) && e.preventDefault()
-                      }
-                      onInput={this.onInput}
-                    />
-                    <FormHelperText id="my-helper-text">
-                      We'll never share your number.
-                    </FormHelperText>
-                  </FormControl>
-                  <IconButton
-                    color="primary"
-                    onClick={this.onClick}
-                    className={classes.formSubmit}
-                    disabled={mobileNumber.length === 10 ? false : true}
-                  >
-                    <DoubleArrowIcon />
-                  </IconButton>
+                      <DoubleArrowIcon />
+                    </IconButton>
+                  </Box>
                 </Box>
+              </Grow>
+            </Hidden>
+            <Hidden only="lg">
+              <Slide
+                direction="left"
+                in={checked}
+                timeout={5000}
+                mountOnEnter
+                unmountOnExit
+              >
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  className={classes.travelBox}
+                >
+                  <Box>
+                    <img className={classes.traveling} src={Traveling} />
+                  </Box>
+                  <Box className={classes.travelBoxHidden}>
+                    <FormControl className={classes.formSelect}>
+                      <InputLabel id="demo-simple-select-required-label">
+                        Code
+                      </InputLabel>
+                      <Select
+                        name="code"
+                        defaultValue={code}
+                        onChange={this.onInput}
+                      >
+                        {countryCode.map((c, i) => (
+                          <MenuItem key={i} value={c}>
+                            {c}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <FormHelperText>Country Code</FormHelperText>
+                    </FormControl>
+                    <FormControl className={classes.formInput}>
+                      <InputLabel>Mobile number</InputLabel>
+                      <Input
+                        fullWidth
+                        name="mobileNumber"
+                        type="number"
+                        onKeyDown={(e) =>
+                          this.InvalidChars.includes(e.key) &&
+                          e.preventDefault()
+                        }
+                        onInput={this.onInput}
+                      />
+                      <FormHelperText id="my-helper-text">
+                        We'll never share your number.
+                      </FormHelperText>
+                    </FormControl>
+                    <IconButton
+                      color="primary"
+                      onClick={this.onClick}
+                      className={classes.formSubmit}
+                      disabled={mobileNumber.length === 10 ? false : true}
+                    >
+                      <DoubleArrowIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Slide>
+            </Hidden>
+          </Box>
+          <Hidden only="lg">
+            <Grow in={checked} timeout={7000}>
+              <Box>
+                <img
+                  className={classes.myCurrentLocationHidden}
+                  src={MyCurrentLocation}
+                />
               </Box>
             </Grow>
-          </Box>
+          </Hidden>
           <Box display="flex" className={classes.cardBox}>
             <Slide
               direction="down"
@@ -154,31 +229,72 @@ class App extends Component {
                 />
               </Box>
             </Slide>
-            <Fade in={checked} timeout={5000}>
-              <Box flexGrow={1}>
-                <Card className={classes.card} variant="outlined">
-                  <CardContent>
-                    {Object.keys(phChaser).length === 0 ? (
-                      <Typography className={classes.title} variant="overline">
-                        locate some spot
-                      </Typography>
-                    ) : (
-                      <>
+            <Hidden only="xs">
+              <Fade in={checked} timeout={5000}>
+                <Box flexGrow={1}>
+                  <Card className={classes.card} variant="outlined">
+                    <CardContent>
+                      {Object.keys(phChaser).length === 0 ? (
                         <Typography
                           className={classes.title}
                           variant="overline"
                         >
-                          country: {phChaser.country} <br />
-                          country code: {phChaser.country_code} <br />
-                          national number: {phChaser.national_number} <br />
-                          service provider: {phChaser.service_provider}
+                          locate some spot
                         </Typography>
-                      </>
-                    )}
-                  </CardContent>
-                </Card>
-              </Box>
-            </Fade>
+                      ) : (
+                        <>
+                          <Typography
+                            className={classes.title}
+                            variant="overline"
+                          >
+                            country: {phChaser.country} <br />
+                            country code: {phChaser.country_code} <br />
+                            national number: {phChaser.national_number} <br />
+                            service provider: {phChaser.service_provider}
+                          </Typography>
+                        </>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Box>
+              </Fade>
+            </Hidden>
+            <Hidden only="lg">
+              <Slide
+                direction="right"
+                in={checked}
+                timeout={5000}
+                mountOnEnter
+                unmountOnExit
+              >
+                <Box flexGrow={1}>
+                  <Card className={classes.card} variant="outlined">
+                    <CardContent>
+                      {Object.keys(phChaser).length === 0 ? (
+                        <Typography
+                          className={classes.title}
+                          variant="overline"
+                        >
+                          locate some spot
+                        </Typography>
+                      ) : (
+                        <>
+                          <Typography
+                            className={classes.title}
+                            variant="overline"
+                          >
+                            country: {phChaser.country} <br />
+                            country code: {phChaser.country_code} <br />
+                            national number: {phChaser.national_number} <br />
+                            service provider: {phChaser.service_provider}
+                          </Typography>
+                        </>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Box>
+              </Slide>
+            </Hidden>
           </Box>
         </Container>
       </>
@@ -212,6 +328,9 @@ const useStyles = (theme) => ({
       marginTop: theme.spacing(3),
     },
   },
+  travelBoxHidden: {
+    margin: theme.spacing(4, 0),
+  },
   formSelect: {
     marginRight: theme.spacing(2),
   },
@@ -230,6 +349,11 @@ const useStyles = (theme) => ({
       display: "none",
     },
   },
+  myCurrentLocationHidden: {
+    marginLeft: theme.spacing(3),
+    width: 300,
+    height: 300,
+  },
   card: {
     background: "linear-gradient(45deg, #191970 30%, #A9A9A9 90%)",
     borderRadius: 3,
@@ -239,7 +363,7 @@ const useStyles = (theme) => ({
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     margin: theme.spacing(5, 5),
     [theme.breakpoints.down("sm")]: {
-      width: 355,
+      width: 360,
       height: 170,
       margin: theme.spacing(3, 0),
     },
