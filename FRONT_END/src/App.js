@@ -39,7 +39,9 @@ class App extends Component {
   }
 
   fetchData = async () => {
-    const resp = await axios.get(`${process.env.REACT_APP_HTTP_LINK}/PyCountriesCode`);
+    const resp = await axios.get(
+      `${process.env.REACT_APP_HTTP_LINK}/PyCountriesCode`
+    );
     const data = await resp.data.figures;
     this.setState({ countryCode: data });
   };
@@ -49,9 +51,12 @@ class App extends Component {
 
   onClick = async () => {
     const { code, mobileNumber } = this.state;
-    const resp = await axios.get(`${process.env.REACT_APP_HTTP_LINK}/PhChaser`, {
-      params: { CODE: code, PHONE: mobileNumber },
-    });
+    const resp = await axios.get(
+      `${process.env.REACT_APP_HTTP_LINK}/PhChaser`,
+      {
+        params: { CODE: code, PHONE: mobileNumber },
+      }
+    );
     const data = await resp.data;
     this.setState({ phChaser: data });
   };
@@ -75,7 +80,7 @@ class App extends Component {
               mountOnEnter
               unmountOnExit
             >
-              <Box flexGrow={1}>
+              <Box flexGrow={1} className={classes.myLocationBox}>
                 <img className={classes.myLocation} src={MyLocation} />
               </Box>
             </Slide>
@@ -106,9 +111,10 @@ class App extends Component {
                     </Select>
                     <FormHelperText>Country Code</FormHelperText>
                   </FormControl>
-                  <FormControl>
+                  <FormControl className={classes.formInput}>
                     <InputLabel>Mobile number</InputLabel>
                     <Input
+                      fullWidth
                       name="mobileNumber"
                       type="number"
                       onKeyDown={(e) =>
@@ -123,6 +129,7 @@ class App extends Component {
                   <IconButton
                     color="primary"
                     onClick={this.onClick}
+                    className={classes.formSubmit}
                     disabled={mobileNumber.length === 10 ? false : true}
                   >
                     <DoubleArrowIcon />
@@ -139,7 +146,7 @@ class App extends Component {
               mountOnEnter
               unmountOnExit
             >
-              <Box>
+              <Box className={classes.myCurrentLocationBox}>
                 <img
                   className={classes.myCurrentLocation}
                   src={MyCurrentLocation}
@@ -184,20 +191,48 @@ const useStyles = (theme) => ({
     width: 250,
     height: 350,
   },
+  myLocationBox: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
   travelBox: {
     margin: theme.spacing(2, 5),
+    [theme.breakpoints.down("sm")]: {
+      margin: theme.spacing(0),
+    },
   },
   traveling: {
     width: 150,
     height: 150,
+    [theme.breakpoints.down("sm")]: {
+      width: 250,
+      height: 130,
+      marginTop: theme.spacing(3),
+    },
   },
   formSelect: {
     marginRight: theme.spacing(2),
+  },
+  formInput: {
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(1),
+    },
+  },
+  formSubmit: {
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(1),
+    },
   },
   myCurrentLocation: {
     marginRight: theme.spacing(15),
     width: 300,
     height: 300,
+  },
+  myCurrentLocationBox: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   card: {
     background: "linear-gradient(45deg, #191970 30%, #A9A9A9 90%)",
@@ -207,10 +242,18 @@ const useStyles = (theme) => ({
     width: 300,
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     margin: theme.spacing(5, 5),
+    [theme.breakpoints.down("sm")]: {
+      width: 250,
+      height: 130,
+      margin: theme.spacing(3, 0),
+    },
   },
   title: {
     fontSize: 14,
     color: "white",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 10,
+    },
   },
 });
 
