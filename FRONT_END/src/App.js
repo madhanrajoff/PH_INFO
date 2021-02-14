@@ -141,68 +141,6 @@ class App extends Component {
                 </Box>
               </Grow>
             </Hidden>
-            <Hidden only="lg">
-              <Slide
-                direction="left"
-                in={checked}
-                timeout={5000}
-                mountOnEnter
-                unmountOnExit
-              >
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  className={classes.travelBox}
-                >
-                  <Box>
-                    <img className={classes.traveling} src={Traveling} />
-                  </Box>
-                  <Box className={classes.travelBoxHidden}>
-                    <FormControl className={classes.formSelect}>
-                      <InputLabel id="demo-simple-select-required-label">
-                        Code
-                      </InputLabel>
-                      <Select
-                        name="code"
-                        defaultValue={code}
-                        onChange={this.onInput}
-                      >
-                        {countryCode.map((c, i) => (
-                          <MenuItem key={i} value={c}>
-                            {c}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                      <FormHelperText>Country Code</FormHelperText>
-                    </FormControl>
-                    <FormControl className={classes.formInput}>
-                      <InputLabel>Mobile number</InputLabel>
-                      <Input
-                        fullWidth
-                        name="mobileNumber"
-                        type="number"
-                        onKeyDown={(e) =>
-                          this.InvalidChars.includes(e.key) &&
-                          e.preventDefault()
-                        }
-                        onInput={this.onInput}
-                      />
-                      <FormHelperText id="my-helper-text">
-                        We'll never share your number.
-                      </FormHelperText>
-                    </FormControl>
-                    <IconButton
-                      color="primary"
-                      onClick={this.onClick}
-                      className={classes.formSubmit}
-                      disabled={mobileNumber.length === 10 ? false : true}
-                    >
-                      <DoubleArrowIcon />
-                    </IconButton>
-                  </Box>
-                </Box>
-              </Slide>
-            </Hidden>
           </Box>
           <Hidden only="lg">
             <Grow in={checked} timeout={7000}>
@@ -213,7 +151,64 @@ class App extends Component {
                 />
               </Box>
             </Grow>
+            <Slide
+              direction="left"
+              in={checked}
+              timeout={5000}
+              mountOnEnter
+              unmountOnExit
+            >
+              <Box
+                display="flex"
+                flexDirection="column"
+                className={classes.travelBox}
+              >
+                <Box className={classes.travelBoxHidden}>
+                  <FormControl className={classes.formSelect}>
+                    <InputLabel id="demo-simple-select-required-label">
+                      Code
+                    </InputLabel>
+                    <Select
+                      name="code"
+                      defaultValue={code}
+                      onChange={this.onInput}
+                    >
+                      {countryCode.map((c, i) => (
+                        <MenuItem key={i} value={c}>
+                          {c}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <FormHelperText>Country Code</FormHelperText>
+                  </FormControl>
+                  <FormControl className={classes.formInput}>
+                    <InputLabel>Mobile number</InputLabel>
+                    <Input
+                      fullWidth
+                      name="mobileNumber"
+                      type="number"
+                      onKeyDown={(e) =>
+                        this.InvalidChars.includes(e.key) && e.preventDefault()
+                      }
+                      onInput={this.onInput}
+                    />
+                    <FormHelperText id="my-helper-text">
+                      We'll never share your number.
+                    </FormHelperText>
+                  </FormControl>
+                  <IconButton
+                    color="primary"
+                    onClick={this.onClick}
+                    className={classes.formSubmit}
+                    disabled={mobileNumber.length === 10 ? false : true}
+                  >
+                    <DoubleArrowIcon />
+                  </IconButton>
+                </Box>
+              </Box>
+            </Slide>
           </Hidden>
+
           <Box display="flex" className={classes.cardBox}>
             <Slide
               direction="down"
@@ -329,7 +324,7 @@ const useStyles = (theme) => ({
     },
   },
   travelBoxHidden: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
   formSelect: {
@@ -353,14 +348,14 @@ const useStyles = (theme) => ({
   myCurrentLocationHidden: {
     marginLeft: theme.spacing(3),
     width: 300,
-    height: 300,
+    height: 250,
   },
   card: {
     background: "linear-gradient(45deg, #191970 30%, #A9A9A9 90%)",
     borderRadius: 3,
     border: 0,
     height: 170,
-    width: 300,
+    width: 400,
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     margin: theme.spacing(5, 5),
     [theme.breakpoints.down("sm")]: {
