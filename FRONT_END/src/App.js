@@ -345,6 +345,7 @@ const useStyles = (theme) => ({
     },
   },
   myCurrentLocationHidden: {
+    marginTop: theme.spacing(5),
     marginLeft: theme.spacing(3),
     width: 300,
     height: 250,
@@ -359,8 +360,8 @@ const useStyles = (theme) => ({
     margin: theme.spacing(5, 5),
     [theme.breakpoints.down("sm")]: {
       width: 360,
-      height: 170,
-      margin: theme.spacing(3, 0),
+      height: 190,
+      margin: theme.spacing(5, 0),
     },
   },
   cardBox: {
@@ -373,7 +374,7 @@ const useStyles = (theme) => ({
     fontSize: 13,
     color: "white",
     [theme.breakpoints.down("sm")]: {
-      fontSize: 13,
+      fontSize: 14,
     },
   },
 });
