@@ -18,6 +18,8 @@ import Fade from "@material-ui/core/Fade";
 import Grow from "@material-ui/core/Grow";
 import Slide from "@material-ui/core/Slide";
 import Hidden from "@material-ui/core/Hidden";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
 import axios from "axios";
 
@@ -383,4 +385,187 @@ const useStyles = (theme) => ({
   },
 });
 
-export default withStyles(useStyles, { withTheme: true })(App);
+class App2 extends Component {
+  state = {
+    countryCode: [],
+    code: 91,
+    mobileNumber: 0,
+    phChaser: {},
+  };
+
+  Desktop = ["lg", "md", "sm", "xl"];
+
+  Mobile = ["md", "sm", "xl", "xs"];
+
+  InvalidChars = [".", "-", "e", "+", "E"];
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData = async () => {
+    const resp = await axios.get(
+      `${process.env.REACT_APP_HTTP_LINK}/PyCountriesCode`
+    );
+    const data = await resp.data.figures;
+    this.setState({ countryCode: data });
+  };
+
+  onInput = ({ target: { name, value } }) =>
+    this.setState({ [name]: value, phChaser: {} });
+
+  onClick = async () => {
+    const { code, mobileNumber } = this.state;
+    const resp = await axios.get(
+      `${process.env.REACT_APP_HTTP_LINK}/PhChaser`,
+      {
+        params: { CODE: code, PHONE: mobileNumber },
+      }
+    );
+    const data = await resp.data;
+    this.setState({ phChaser: data });
+  };
+
+  render() {
+    const { classes } = this.props;
+
+    const { countryCode, code, mobileNumber, phChaser } = this.state;
+
+    const checked = true;
+
+    return (
+      <Container fixed>
+        <Grid container spacing={3}>
+          <Grid item xs={8}>
+            <Slide
+              direction="left"
+              in={checked}
+              timeout={4000}
+              mountOnEnter
+              unmountOnExit
+            >
+              <img className={classes.myLocation} src={MyLocation} />
+            </Slide>
+          </Grid>
+          <Grid item xs={4}>
+            <Box display="flex" alignItems="center" flexDirection="column">
+              <img className={classes.traveling} src={Traveling} />
+            </Box>
+            <Box display="flex" flexDirection="row" justifyContent="flex-end">
+              <FormControl className={classes.formSelect}>
+                <InputLabel id="demo-simple-select-required-label">
+                  Code
+                </InputLabel>
+                <Select name="code" defaultValue={code} onChange={this.onInput}>
+                  {countryCode.map((c, i) => (
+                    <MenuItem key={i} value={c}>
+                      {c}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>Country Code</FormHelperText>
+              </FormControl>
+
+              <FormControl className={classes.formInput}>
+                <InputLabel>Mobile number</InputLabel>
+                <Input
+                  fullWidth
+                  name="mobileNumber"
+                  type="number"
+                  onKeyDown={(e) =>
+                    this.InvalidChars.includes(e.key) && e.preventDefault()
+                  }
+                  onInput={this.onInput}
+                />
+                <FormHelperText id="my-helper-text">
+                  We'll never share your number.
+                </FormHelperText>
+              </FormControl>
+
+              <IconButton
+                color="primary"
+                onClick={this.onClick}
+                className={classes.formSubmit}
+                disabled={mobileNumber.length === 10 ? false : true}
+              >
+                <DoubleArrowIcon />
+              </IconButton>
+            </Box>
+          </Grid>
+          <Grid item xs={6}>
+            <Grow in={checked} timeout={8000}>
+              <Card className={classes.card} variant="outlined">
+                <CardContent>
+                  {Object.keys(phChaser).length === 0 ? (
+                    <Typography className={classes.title} variant="overline">
+                      locate some spot
+                    </Typography>
+                  ) : (
+                    <>
+                      <Typography className={classes.title} variant="overline">
+                        country: {phChaser.country} <br />
+                        country code: {phChaser.country_code} <br />
+                        national number: {phChaser.national_number} <br />
+                        service provider: {phChaser.service_provider}
+                      </Typography>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+            </Grow>
+          </Grid>
+          <Grid item xs={6}>
+            <Slide
+              direction="right"
+              in={checked}
+              timeout={5000}
+              mountOnEnter
+              unmountOnExit
+            >
+              <Box display="flex" alignItems="flex-end" flexDirection="column">
+                <img
+                  className={classes.myCurrentLocation}
+                  src={MyCurrentLocation}
+                />
+              </Box>
+            </Slide>
+          </Grid>
+        </Grid>
+      </Container>
+    );
+  }
+}
+
+const useStyle = (theme) => ({
+  myLocation: {
+    width: 250,
+    height: 350,
+  },
+  traveling: {
+    marginTop: theme.spacing(4),
+    width: 200,
+    height: 200,
+  },
+  formSelect: {
+    marginRight: theme.spacing(2),
+  },
+  card: {
+    background: "linear-gradient(45deg, #191970 30%, #A9A9A9 90%)",
+    borderRadius: 3,
+    border: 0,
+    height: 190,
+    width: 400,
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    marginTop: theme.spacing(10),
+  },
+  myCurrentLocation: {
+    width: 300,
+    height: 300,
+  },
+  title: {
+    fontSize: 14,
+    color: "white",
+  },
+});
+
+export default withStyles(useStyle, { withTheme: true })(App2);
