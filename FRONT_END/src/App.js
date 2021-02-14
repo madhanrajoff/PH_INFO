@@ -324,7 +324,7 @@ const useStyles = (theme) => ({
     },
   },
   travelBoxHidden: {
-    margin: theme.spacing(15, 0, 15, 1.5)
+    margin: theme.spacing(10, 0, 10, 1.5)
   },
   formSelect: {
     marginRight: theme.spacing(2),
