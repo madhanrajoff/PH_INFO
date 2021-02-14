@@ -138,7 +138,7 @@ class App extends Component {
               </Box>
             </Grow>
           </Box>
-          <Box display="flex" alignItems="flex-end" flexDirection="row-reverse">
+          <Box display="flex" className={classes.cardBox}>
             <Slide
               direction="down"
               in={checked}
@@ -204,15 +204,18 @@ const useStyles = (theme) => ({
   },
   traveling: {
     width: 150,
-    height: 150,
+    height: 250,
     [theme.breakpoints.down("sm")]: {
-      width: 250,
+      width: 300,
       height: 130,
       marginTop: theme.spacing(3),
     },
   },
   formSelect: {
     marginRight: theme.spacing(2),
+    [theme.breakpoints.down("sm")]: {
+      marginRight: theme.spacing(10),
+    },
   },
   formInput: {
     [theme.breakpoints.down("sm")]: {
@@ -243,13 +246,19 @@ const useStyles = (theme) => ({
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     margin: theme.spacing(5, 5),
     [theme.breakpoints.down("sm")]: {
-      width: 250,
-      height: 130,
+      width: 330,
+      height: 170,
       margin: theme.spacing(3, 0),
     },
   },
+  cardBox: {
+    [theme.breakpoints.down("lg")]: {
+      alignItems: "flex-end",
+      flexDirection: "row-reverse",
+    },
+  },
   title: {
-    fontSize: 14,
+    fontSize: 13,
     color: "white",
     [theme.breakpoints.down("sm")]: {
       fontSize: 10,
