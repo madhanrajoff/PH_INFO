@@ -309,7 +309,6 @@ const useStyles = (theme) => ({
     },
   },
   travelBox: {
-    margin: theme.spacing(2, 5),
     [theme.breakpoints.down("sm")]: {
       margin: theme.spacing(0),
     },
